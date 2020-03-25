@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- 
+html에서는 블럭요소[태그가 자체크기]와 인라인 요소[한줄에 열거]가 있다.
+ex)
+div는 블락 요소 
+span은 인라인 요소
+ -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>CSS적용해 보기</title>
+<style type="text/css">
+	div{
+		display:block;
+		width:300px;
+		height:200px;
+		background-color:red;
+	}
+	span{/* 인라인 요소 로 크기가 변경이 안됨 */
+		display:inline;
+		width:200px;
+		height:400px;
+		background-color:blue;
+	}
+	span#sp_1{	/*css는 가지고 있던 요소를 변경 가능함 . span - inline -> block  */
+		display:block;
+		width:200px;
+		height:500px;
+		background-color:yellow;
+	}
+	span#sp_2{
+		display:none;
+		width:200px;
+		height:500px;
+		background-color:green;
+	}
+</style>
+</head>
+<body>
+<div>Div:ajax에서 많이 활용-기억</div>
+<span>Span</span>
+<hr></hr>
+<span id="sp_1">Hello</span>
+<span id="sp_2">HTML5!!</span>
+<h1>코로나19</h1>
+</body>
+</html>
