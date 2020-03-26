@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html태그와 자바스크립트와 만나는 부분</title>
+<script type="text/javascript">
+	function confirm(){
+		console.log("innerText : "+v_msg.innerText);	//해당 태그 안에있는 택스트만 출력
+		console.log("innerHTML : "+v_msg.innerHTML);	//해당 태그 안에있는 태그와 텍스트를 출력
+		console.log("outerText : "+v_msg.outerText);	//
+		console.log("outerHTML : "+v_msg.outerHTML);	//
+		if (v_msg.innerText==="당신의 아이디를 입력하세요.[안내]") {
+			//v_msg.innerText="<p>바뀜</p>";
+			v_msg.innerHTML="<p>바뀜</p>";
+		}
+		else if(v_msg.innerText==="바뀜"){
+			//v_msg.innerText="당신의 아이디를 입력하세요.[안내]";
+			v_msg.innerHTML="<p>당신의 아이디를 입력하세요.[안내]</p>";
+		}
+		
+	};
+</script>
+</head>
+<body>
+<script type="text/javascript"> //순서가 중요하다  - 선언 되기전 null값이 선언된 후 값이 있다.
+//before	
+	var v_msg = document.getElementById("d_msg");
+	console.log("before  v_msg : "+v_msg);   // console.log 는 크롬 개발자도구 ctrl shift i 에 console 창에서 볼 수 있다.
+</script>
+<div id="d_msg"><p>당신의 아이디를 입력하세요.[안내]</p></div>
+<script type="text/javascript">
+//after
+var v_msg = document.getElementById("d_msg");
+	//v_msg.innerText="바뀜";
+	console.log("after  v_msg : "+v_msg);
+</script>
+<button onClick ="confirm()">확인</button>
+</body>
+</html>

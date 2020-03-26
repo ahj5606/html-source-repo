@@ -1,0 +1,28 @@
+a.html 2020-03-26
+자바스크립트의 위치
+전역변수 위치
+함수 위치
+함수 호출
+
+------------
+
+b.html - html태그와 자바스크립트와 만나기 
+자바스크립트와 html 태그 id 의 순서.
+div로 분할하기
+innerHTML innerText outerHTML outerText // 차이점 
+http://koxo.com/ 속성에 innerHTML / innerTest outerHTML outerTest // 
+
+
+-----------
+
+c.html - CSS와 자바스크립트 만나기
+<div>
+<div id="a">
+<div class="">
+<style type 메인타입/서브타입 ></style>
+ text doc txt 
+ 
+ div - 전부다 적용
+ div#a - a안에적용
+ div.class이름 class 이름에만 적용 
+
