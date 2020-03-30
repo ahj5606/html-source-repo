@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+<script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<table id="dg_dept" class="easyui-datagrid"></table>
+	<script type="text/javascript">
+		$("#dg_dept").datagrid({
+			url:'../../json/dept.json',
+			    title:'부서관리',
+			    width:'480px',
+				columns:[[
+			        {field:'deptno',title:'부서번호',width:120,align:'center'},
+			        {field:'dname',title:'부서명',width:150,align:'center'},
+			        {field:'loc',title:'지역',width:200,align:'center'},
+			        
+			    ]]
+			
+		});
+	</script>
+</body>
+</html>

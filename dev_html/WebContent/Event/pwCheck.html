@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>비밀번호 확인하기</title>
+</head>
+<body>
+	<script type="text/javascript">
+		window.onload = function(){
+			document.getElementById("f_member").onsubmit = function(){
+				var u_pw = document.getElementById("mem_pw").value;
+				var check_pw = document.getElementById("pw_check").value;
+				var mem_name = document.getElementById("mem_name").value;
+				
+				if(mem_name===""){
+					alert("이름을 입력해 주세요.");
+					return false;
+				}
+				else if(!(u_pw===check_pw)){
+					alert("비밀번호가 서로 다릅니다.");
+					return false;
+				}
+			}
+			
+		};
+	</script>
+	<!--
+	id는 화면에서
+	name은 서버언어(톰캣)
+	  -->
+	<form id ="f_member" action ="./sendCheck.jsp">
+		<label>이름</label><br>
+		<input type="text" id="mem_name" name="mem_name"/><br>
+		<label>비번</label><br>
+		<input type="password" id="mem_pw" name="mem_pw"/><br>
+		<label>비번 확인</label><br>
+		<input type="password" id="pw_check" name="pw_check"/><br>
+		<input type="submit" value="제출">
+	</form>
+</body>
+</html>

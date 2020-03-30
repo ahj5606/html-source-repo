@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function(){
+		var btn_a = document.getElementById("btn_a");
+		var btn_b = document.getElementById("btn_b");
+		var count_a = document.getElementById("count_a");
+		var count_b = document.getElementById("count_b");
+		/* 자바스크립트에서는 속성에 대한 값을 초기화 할 때 더블쿼테이션 혹은 싱글 쿼테이션을 붙이지
+		않으면 변수 취급함
+		*/
+		btn_a.onclick = function(){
+			//alert("A호출성공");
+			count_a.innerText = Number(count_a.innerText)+1;
+		};
+		btn_b.onclick = function(){
+			//alert("B호출성공");
+			count_b.innerText = Number(count_b.innerText)+1;
+		};
+		
+	};
+</script>
+<button id = "btn_a"><h1>ButtonA</h1></button> ButtonA  <span id="count_a">0</span>
+<br><hr>
+<button id = "btn_b"><h1>ButtonB</h1></button> ButtonB  <span id="count_b">0</span>
+</body>
+</html>

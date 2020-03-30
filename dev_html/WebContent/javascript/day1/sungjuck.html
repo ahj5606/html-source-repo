@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	
+</script>
+</head>
+<body>
+<!--연습문제
+	성적등급 계산하기
+	성적을 입력하세요
+	당신의 등급은 ? 입니다.
+  -->
+  <script type="text/javascript">
+    var isStop = false;
+    while(!isStop){
+  		var jumsu = prompt("성적을 입력하세요.1~100값");
+    	if(0<=jumsu && jumsu<=100){
+    		isStop=true;
+    	}
+    }
+  	var grade = null;
+  	if(90<=jumsu){
+  		grade = "A"
+  	} else if(80<=jumsu){
+  		grade = "B"
+  	} else if(70<=jumsu){
+  		grade = "C"
+  	} else if(60<=jumsu){
+  		grade = "D"
+  	} else if(50<=jumsu){
+  		grade = "E"
+  	} else if(jumsu<=50){
+  		grade = "F"
+  	}
+  	alert("당신의 등급은 '"+grade+"' 입니다.");
+  </script>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>Car Index</title>
 <style type="text/css">
-	li{list-style:hebrew;}
+	li{list-style:none;}
 	a{text-decoration: none;}
 	#main_header{
 		background: pink;
@@ -14,15 +14,31 @@
 		border-top:2px solid black;
 		border-left:2px solid black;
 	}
-	#main_nav{
-		overflow:hidden;
-		
-		background: #E4F7BA;
-	}
-	#main_nav  > ul.left{
-		overflow:hidden;
-		float:left;
-	}
+		#main_gnb a{
+			color:white;
+			font-weight: bold;
+			border-left: 3px solid #ff00f0;
+			border-right: 3px solid #ff00f0;
+			padding: 
+		}
+		#main_gnb{
+			overflow: hidden;
+			background-color: #3366FF;
+		}
+		#main_gnb > ul.left{
+			float:left;
+		}
+		#main_gnb >ul.left>li{
+			float:left;
+			margin-right: 10px;
+		}
+		#main_gnb>ul.right{
+			float:right;
+		}
+		#main_gnb >ul.right>li{
+			width:110px;
+			float:left;
+		}
 </style>
 </head>
 <body>
@@ -36,13 +52,15 @@
 			<!--================== navigation 영역 -->
 			<tr height="50px">
 				<td>
-					<nav id="main_nav">
+					<nav id="main_gnb">
 						<ul class="left">
-							<li><a href="#">Java</a></li>
-							<li><a href="#">Oracle</a></li>
-							<li><a href="#">HTML5</a></li>
-							<li><a href="#">JSON</a></li>
-							<li><a href="#">CSS</a></li>
+								<li><a href="#">JAVA수업</a></li>
+								<li><a href="#">ORALCE수업</a></li>
+								<li><a href="#">HTML수업</a></li>
+						</ul>
+						<ul class="right">
+								<li><a href="#">로그인</a></li>
+								<li><a href="#">회원가입</a></li>
 						</ul>
 					</nav>
 				</td>

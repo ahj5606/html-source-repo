@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>floatLayout.html[float속성을 이용한 레이아웃]</title>
+<style type ="text/css">
+	div#header{
+		width: 950px; height: 80px;
+		background-color: #33CCFF;
+	}
+	div#navgation{
+		width:950px; height:50px;
+		background-color: #FFCCCC;
+	}
+	div#wrap{
+		overflow:hidden;
+		width:950px; height:450px;
+		background-color: #ff00f0;
+	}
+	div.float{
+		float: left;
+	}
+	div#aside{
+		width:200px; height:450px;
+		background-color: #3366FF;
+	}
+	div#section{
+		width:750px; height:450px;
+		background-color: #CC66FF;
+	}
+	div#footer{
+		width:950px; height:50px;
+		background-color: #FFFF33;
+	}
+</style>
+</head>
+<body>
+	<div id="header"><h1 align ="center">Header</h1></div>
+	<div id="navgation"><h1 align ="center">Navigation</h1></div>
+	<div id="wrap">
+		<div class ="float" id="aside">
+			<h1 align ="center">Aside</h1>
+		</div>
+		<div class ="float" id="section">
+			<h1 align ="center">Section</h1>
+		</div>
+	</div>
+	<div id="footer"><h1 align ="center">Footer</h1></div>
+</body>
+</html>

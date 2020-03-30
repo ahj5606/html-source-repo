@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://fonts.googleapis.com/css?family=Kranky" rel="stylesheet">
+<style type="text/css">
+	body{font-family: 'Times New Roman', 'serif';}
+	li{
+		list-style: none;
+	}
+	a{
+		text-decoration: none;
+	}
+	#main_header > #title{
+		position:absolute;
+		left: 200px;
+		top: 200px;
+		background-color: green;	
+	}
+	#main_header >#main_gnb{
+		position:absolute;
+		left:0px;
+		right:0px;
+	
+	}
+	#main_gnb >ul{overflow:hidden;}
+	#main_gnb >ul>li{float:left;}
+	#main_gnb >ul>li> a{
+		font-size: 60px;
+		border: 5px solid black;
+	}
+	#main_gnb > ul > li > a:hover{
+		background: black;
+		color: white;
+	}
+	
+	
+</style>
+<!-- title선택자에만 웹폰트를 적용하고 싶다. 어떡하지? -->
+<style type="text/css">
+	#title{
+		font-family: 'Kranky', cursive;
+	}
+</style>
+</head>
+<body>
+	<header id="main_header">
+		<div id="title"><h1>네비게이션바(HTML5+CSS3 Basic)</h1></div>
+		<nav id="main_gnb">
+			<ul>
+				<li><a href="#">JAVA수업</a></li>
+				<li><a href="#">ORALCE수업</a></li>
+				<li><a href="#">HTML수업</a></li>
+			</ul>
+		</nav>
+	</header>
+</body>
+</html>
