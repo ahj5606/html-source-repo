@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function check(p_input){
+		if(p_input.value.length>4){
+			alert("4글자 까지만쓸수있습니다.");
+			p_input.value="";
+			p_input.focus();
+		}
+		
+	}
+</script>
+</head>
+<body>
+<!--
+	select ,text, textarea 등에서 객체의 내용을 변경한 후 포커스를 잃을 때 호출된다.
+  -->
+  <input type="text" id="mem_name" name="mem_name" size="20"  onChange="check(this)">
+</body>
+</html>

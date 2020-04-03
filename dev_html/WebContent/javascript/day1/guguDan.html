@@ -8,8 +8,9 @@
 		var dap = new Array(); //new Array(5) - 인덱스를 0~4까지 지정할 수 있다.
 		//var dan = prompt("확인하려는 구구단을 입력하세요.",2); //디폴트값 2.
 		var dan =document.getElementById("dan").value;
-		document.write(dan);
-		for(var i =1;i<9;i++){
+		document.write(dan+" 단 출력");
+		document.write("<br>");
+		for(var i =1;i<10;i++){
 			dap[i]=dan*i;
 			document.write(dan,"*",i,"는",dap[i],"<br>");
 			

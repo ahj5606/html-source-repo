@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+       
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body { 
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"  width="800px" height="650px"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+        	//가산디지털단지 7호선 37.480380, 126.882812
+          center: {lat: 37.480380, lng: 126.882812},
+          zoom: 15
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEBhc1C6-KT0SPygWxZUsXbeTb1USywPc&callback=initMap"
+    async defer></script>
+  </body>
+</html>

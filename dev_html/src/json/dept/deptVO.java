@@ -1,12 +1,12 @@
 package json.dept;
 
 public class deptVO {
-	private int depno = 0;
-	public int getDepno() {
-		return depno;
+	private int deptno = 0;
+	public int getDeptno() {
+		return deptno;
 	}
-	public void setDepno(int depno) {
-		this.depno = depno;
+	public void setDeptno(int depno) {
+		this.deptno = depno;
 	}
 	public String getDname() {
 		return dname;

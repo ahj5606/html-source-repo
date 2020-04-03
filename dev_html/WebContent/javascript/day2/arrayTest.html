@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>배열-요일정보 /2차배열-영화 </title>
+</head>
+<body>
+<script type="text/javascript">
+	//[{"주연배우":"송강호","나이":50,"영화제목":"기생충"}]<<JSON 포멧형태
+	var arrWeek=["일","월","화","수","목","금","토"];
+	document.write(arrWeek[1],"요일<br>");
+	document.write(arrWeek[5],"요일<br>");
+	document.write("<hr>");
+	for(var i=0;i<arrWeek.length;i++){
+		if(arrWeek[i]=="일" || arrWeek[i]=="토"){
+			document.write("주말 입니다.<br>");
+		}else{
+			document.write(arrWeek[i],"요일<br>");
+		}
+	}
+	document.write("<hr>");
+	var movie=[
+				["조지 맥케이",29,"1917"],
+				["르네 젤위거",52,"주디"],
+				["송강호",54,"기생충"]
+			  ];
+	for(var i=0;i<movie.length;i++){
+		for(var j=0;j<movie[i].length;j++){
+			//document.write(i+","+j +"         ");
+			document.write(movie[j][i],"   ");
+		}
+		document.write("<br>");
+	}
+	
+	
+	
+	
+</script>
+</body>
+</html>

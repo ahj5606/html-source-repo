@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<style type="text/css">
+	.high-light{
+		background:yellow;
+	}
+	.high-light-0{
+		background:orange; 
+	}
+	.high-light-1{
+		background:aqua;
+	}
+	.high-light-2{
+		background:navy;
+	}
+	.high-light-3{
+		background:red;
+	}
+	.high-light-4{
+		background:blue;
+	}
+	
+</style>
+</head>
+<body>
+<h1>item - 0</h1>
+<h1>item - 1</h1>
+<h1>item - 2</h1>
+<h1>item - 3</h1>
+<h1>item - 4</h1>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//$("h1").addClass('high-light');
+		$('h1').each(function(index,item){
+			$(this).addClass('high-light-'+index);
+		});
+	});
+</script>
+</body>
+</html>

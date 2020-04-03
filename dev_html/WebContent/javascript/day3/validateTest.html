@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>아이디 유효검사</title>
+<script type="text/javascript">
+	
+	function validate(p_input){
+		var valid="abcdefghijklmnopqrstuvwxyz0123456789";
+		var ok ="yes";
+		var temp;
+		for(var i=0;i<p_input.value.length;i++){
+			temp =""+p_input.value.substring(i,i+1);
+			if(valid.indexOf(temp) == -1){
+				ok ="no";
+			}
+		}
+		if(ok=="no"){ 
+			alert("영문자와 숫자만 입력할 수 있어요.");
+			p_input.value="";
+			p_input.focus();
+		}
+	}
+	function validateNum(p_input){
+		var valid="0123456789";
+		var ok ="yes";
+		var temp;
+		for(var i=0;i<p_input.value.length;i++){
+			temp =""+p_input.value.substring(i,i+1);
+			if(valid.indexOf(temp)==-1) ok="no";
+		}
+		if(ok=="no"){ 
+			alert("숫자만 입력할 수 있어요.");
+			p_input.value="";
+			p_input.focus();
+		}
+	}
+<!--
+//코드html59
+//--> //브라우저 마다 유효
+</script>
+</head>
+<body>
+<form id="f_login" method="get" action="loginAction.html" >
+	아이디: <input type="text" id="mem_id" name="mem_id" onBlur="validate(this)"/>
+	<br>
+	<button onclick="document.getElementById('f_login').submit;)">Login</button>	
+</form>
+<hr>
+<form id="f_number" method="get" action="loginAction.html" >
+	숫자만 입력할 수 있어요: <input type="text" id="mem_num" name="mem_num" onBlur="validateNum(this)"/>
+	<br>
+	<button onclick="document.getElementById('f_number').submit;)">number</button>	
+</form>
+
+</body>
+</html>

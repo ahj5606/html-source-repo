@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+	div#d_result{
+		position: absolute;
+	}
+	.listIn{
+		background: #CCFFFF;
+	}
+	.listOut{
+		background: #FFFFFF;
+	}
+</style>
+	<script type ="text/javascript">
+		function account(p_input) {
+			
+		}
+		function showMethod(){
+			//var word =$("#keyword");
+			//var offset = word.offset();
+			$.ajax({
+				method:"get"
+			   ,url:"jsonDeptList.jsp"
+			   ,dataType:"json"
+			   ,success:function(data){
+					//alert("data:"+data); 		
+					var result =JSON.stringify(data); //구조체로 보여줌 
+					//alert("result :" + result);
+					var jsonDoc = JSON.parse(result);
+					for(var i=0;i<jsonDoc.length;i++){
+						$("#d_result").text(jsonDoc[i].deptno+","+jsonDoc[i].dname+","+jsonDoc[i].loc);
+					}
+					
+			   }
+			,fail:function(xhrObject,txtStatus){
+				alert(txtStatus+","+xhrObject.responseText);			
+					
+			}
+			});
+			//$("#d_result").html("보인다.");
+		}
+		function clearMethod(){
+			$("#d_result").css("backgroundColor","#FFFFFF");
+			$("#d_result").css("border","none");
+			$("#d_result").html("");
+		}
+		
+	</script>
+</head>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//$("#d_result").hide();
+	});
+</script>
+	<input type="text" id="keyword" name="keyword" size="20" onkeyup="showMethod()">
+	<div id="d_result"></div>
+	<button onclick="showMethod()">보여줘</button>
+	<button onclick="clearMethod()">지워줘</button>
+</body>
+</html>

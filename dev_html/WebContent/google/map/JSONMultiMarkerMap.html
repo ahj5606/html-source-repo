@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEBhc1C6-KT0SPygWxZUsXbeTb1USywPc"></script>
+</head>
+<body>
+	<div id="d_map" style="width:800px; height:600px;"></div>
+	<script type="text/javascript">
+		var map = new google.maps.Map(document.getElementById('d_map'),{
+			zoom:14
+			,center: new google.maps.LatLng(37.480380,126.882812)
+			,mapTypeId:google.maps.MapTypeId.ROADMAP
+		});
+		var infowindow = new google.maps.InfoWindow();
+		var maker;//5개가 출력
+		var i;//마커 생성시 부여한 인덱스 값.
+		$.ajax({
+			url:'jsonMapList.jsp'
+			,dataType:'json'
+			,success:function(data){
+				var strData =JSON.stringify(data);
+				var jsonData = JSON.parse(strData);
+				
+				for(var i=0;i<jsonData.length;i++){
+					marker = new google.maps.Marker({
+						id: i
+					   ,position: new google.maps.LatLng(jsonData[i].lat ,jsonData[i].lng)
+					   ,map:map
+					   ,title: jsonData[i].res_name
+					});					
+					google.maps.event.addListener(marker,'click',(function(marker,i){
+						return function(){
+							infowindow.setContent('<b>'+jsonData[i].res_name+'</b>');
+							infowindow.open(map,marker);
+						}//end of 반환함수가 종료
+					})(marker,i));
+					if(marker){//자바스크립트에서는 0이 아니면 모두 true
+						marker.addListener('click',function(){
+							map.setZoom(15);
+							map.setCenter(this.getPosition());
+						});							
+					}
+				}///////end of for
+			}
+		});
+	</script>
+</body>
+</html>

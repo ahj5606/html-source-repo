@@ -59,9 +59,9 @@ public class deptjson {
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				dvo = new deptVO();
-				dvo.setDepno(rs.getInt("deptno"));
+				dvo.setDeptno(rs.getInt("deptno"));
 				dvo.setDname(rs.getString("dname"));
-				dvo.setLoc("loc");
+				dvo.setLoc(rs.getString("loc"));
 				dlist.add(dvo);
 			}
 		} catch(SQLException se) {

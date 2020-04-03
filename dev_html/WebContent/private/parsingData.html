@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>약국 데이터</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	function changebox() {
+		$("#box_loc").change(function({
+			var local = $(this).val();
+			var html ="";
+			for(var i=0;i<loc.length;i++){
+				if(local==loc[i]){
+					html+="주소:"+storeaddr[i]+"\n가게명:"+storename[i];
+				}
+				
+			}
+			document.getElementById("t_mask").innerHTML =html;
+			
+		});
+		
+	}
+</script>
+</head>
+<body>
+<script type="text/javascript">
+	var result ="";
+	var loc =new Array();
+	var storeaddr = new Array();
+	var storename = new Array();
+	fetch("https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/stores/json?page=1")
+	.then(function(response){
+		return response.json();
+	})
+	.then(function(maskJson){
+		result = JSON.stringify(maskJson);
+		jsonDoc = JSON.parse(result);
+		//document.getElementById("t_mask").innerText = jsonDoc.storeInfos;
+		for(var i=0;i<jsonDoc.storeInfos.length;i++){
+			var str = jsonDoc.storeInfos[i].addr.split(" ");
+			loc[i]=str[0];
+			storeaddr[i] = jsonDoc.storeInfos[i].addr;
+			storename[i] = jsonDoc.storeInfos[i].name;
+		}
+		
+	});
+</script>
+<script type="text/javascript">
+	setTimeout(function(){
+	var html ="<select id='box_loc' onchange='changebox'>";
+	for(var i =0;i<loc.length;i++){
+		html +="<<option value='"+loc[i]+"'>"+loc[i]+"</option>"
+	}
+	html+="</select>";
+	document.getElementById("local").innerHTML=html;
+	},1000);
+	
+</script>
+<div id="local">
+	
+
+</div>
+<hr>
+<div  id="t_mask" style="text-align:center"></div>
+
+</body>
+</html>

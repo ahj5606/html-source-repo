@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>tableTest.html과 비교[Jquery사용본]</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	function account(){
+	document.write("<table border='1' width='450'>");
+	for(var i=0;i<3;i++){
+		document.write("<tr><td>&nbsp;&nbsp;&nbsp;</td></tr>");
+	}
+	document.write("</table>");
+	};
+</script>
+</head>
+<body>
+<!--
+학습목표
+나는 document내장 객체를 활용하여 요구사항을 만족하는 화면을 처리할 수 있다.
+  -->
+<script type="text/javascript">
+	function account(pstart,pend){
+		
+		//alert(pstart+" , "+pend);
+		document.write("<center><h1>구구단</h1><table width='70%'><tr>");
+		for(var i=pstart;i<=pend;i++){
+			document.write("<td bgcolor ='green' width='80' height='50'><b>"+i+"단</b></td>");
+			
+		}
+		for(var j=1;j<10;j++){
+			document.write("<tr>");
+			for(var i =Number(pstart);i<=Number(pend);i++){
+				document.write("<td bgcolor ='pink'>"+i+"*"+j+"="+i*j+"</td>");
+			}	
+			document.write("</tr>");
+		}
+		document.write("</tr></table></center>");
+	}
+</script>
+<form id ="f_gugudan">
+구구단 보기:
+시작단 :<input type="text" size="4" name="txtStart"/>
+끝 단: <input type="text" size="4" name="txtEnd"/>
+<button onclick="javascript:account(document.getElementById('f_gugudan').txtStart.value,document.getElementById('f_gugudan').txtEnd.value)">구구단 보기</button>
+</form>
+</body>
+</html>

@@ -8,10 +8,16 @@
 <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
 </head>
 <body>
+<!--
+오라클 서버와 연동 - select문 처리
+js이용해서 태그를 접근 하거나 조작할 수 있다.
+jeasyui는 어떻게 태그를 접근하고 이벤트 처리 하는지 관찰하기.
+JeasyUi API 활용 능력 키우기
+  -->
 	<table id="dg_dept" class="easyui-datagrid"></table>
 	<script type="text/javascript">
 		$("#dg_dept").datagrid({
-			url:'../../json/dept.json',
+			url:'./deptJson.jsp',
 			    title:'부서관리',
 			    width:'480px',
 				columns:[[
@@ -19,9 +25,13 @@
 			        {field:'dname',title:'부서명',width:150,align:'center'},
 			        {field:'loc',title:'지역',width:200,align:'center'},
 			        
-			    ]]
-			
+			    ]],
+		onDblClickRow: function(index,row){
+			alert(row.dname+" , "+row.loc+" , index: "+index);
+			location.href="fetchTest.html";
+		}
 		});
+		
 	</script>
 </body>
 </html>

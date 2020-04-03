@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+	div#d_result{
+		position: absolute;
+	}
+	.listIn{
+		background: #CCFFFF;
+	}
+	.listOut{
+		background: #FFFFFF;
+	}
+</style>
+	<script type ="text/javascript">
+		function account(p_input) {
+			
+		}
+		function showMethod(){
+			//var word =$("#keyword");
+			//var offset = word.offset();
+			$.ajax({
+				method:"get"
+			   ,url:"DeptList.jsp"
+			   ,dataType:"html"
+			   ,success:function(data){
+					//alert("data:"+data);				   
+					$("#d_result").css("width",$("#keyword").offset().width+"px");
+					$("#d_result").css("top",$("#keyword").offset().top+$("#keyword").offset().height+"px");
+					$("#d_result").css("left",$("#keyword").offset().left+"px");
+					$("#d_result").css("backgroundColor","#CCFFFF");
+					$("#d_result").css("border","3px solid #AACC55");
+				   	$("#d_result").html(data);
+			   }
+			,fail:function(xhrObject,txtStatus){
+				alert(txtStatus+","+xhrObject.responseText);			
+					
+			}
+			});
+			//$("#d_result").html("보인다.");
+		}
+		function clearMethod(){
+			$("#d_result").css("backgroundColor","#FFFFFF");
+			$("#d_result").css("border","none");
+			$("#d_result").html("");
+		}
+		
+	</script>
+</head>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		//$("#d_result").hide();
+	});
+</script>
+	<input type="text" id="keyword" name="keyword" size="20" onkeyup="showMethod()">
+	<div id="d_result"></div>
+	<button onclick="showMethod()">보여줘</button>
+	<button onclick="clearMethod()">지워줘</button>
+</body>
+</html>

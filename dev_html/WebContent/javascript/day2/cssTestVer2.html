@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	var j3 = jQuery.noConflict(); //jquery $ 기호 다른 걸로 쓰는방법 // 다른 버전 사용
+</script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	var j1 = jQuery.noConflict(); //jquery $ 기호 다른 걸로 쓰는방법// 다른 버전 사용
+</script>
+<style type="text/css">
+	.high-light{
+		background:yellow;
+	}
+	.high-light-0{
+		background:orange; 
+	}
+	.high-light-1{ 
+		background:aqua;
+	}
+	.high-light-2{
+		background:navy;
+	}
+	.high-light-3{
+		background:red;
+	}
+	.high-light-4{
+		background:blue;
+	}
+	
+</style>
+</head>
+<body>
+<h1>item - 0</h1>
+<h1>item - 1</h1>
+<h1>item - 2</h1>
+<h1>item - 3</h1>
+<h1>item - 4</h1>
+<script type="text/javascript">
+	j1(document).ready(function(){
+		//$("h1").addClass('high-light');
+		j1('h1').each(function(index,item){
+			j1(this).addClass('high-light-'+index);
+		});
+	});
+</script>
+<input type="text" id="mem_id"/ value="tomato">
+<script type="text/javascript">
+	alert(j3('#mem_id').val());
+</script>
+
+
+
+
+</body>
+</html>

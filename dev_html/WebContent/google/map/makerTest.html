@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        width: 80%;
+        height: 80%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div> 
+    <script>
+      var map;
+      var marker;
+      var infoWindow;//말풍선
+      var cuLatLng = {lat: 37.480380, lng: 126.882812};
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+        	//가산디지털단지 7호선 37.480380, 126.882812
+          center: cuLatLng,
+          zoom: 15
+        });
+        marker = new google.maps.Marker({
+        	position:cuLatLng,
+        	map: map,
+        	title:'가산디지털단지 7호선'
+        });
+        var sample ="<div><h2>7호선위치<p>가산디지털단지 7호선의 위치</p>";
+        sample +="<a href='https://www.naver.com'>링크</a></h2></div>";
+        infoWindow = new google.maps.InfoWindow({
+        	content: sample,
+        	maxWidth: 300
+        });
+        //addLitener(instance, eventName, handler)
+        google.maps.event.addListener(marker,'click',function(){
+        	infoWindow.open(map,marker);
+        });
+      }
+    </script>
+<!--
+	콜백함수는 시스템에서 자동 호출하는 함수이다.
+  -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEBhc1C6-KT0SPygWxZUsXbeTb1USywPc&callback=initMap"
+    async defer></script>
+  </body>
+</html>
