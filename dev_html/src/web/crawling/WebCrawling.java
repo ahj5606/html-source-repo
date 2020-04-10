@@ -26,6 +26,7 @@ public class WebCrawling {
 			br.close();
 			//크롤링 시작 - 키(타이틀)
 			List<String> titleList = new ArrayList<String>();
+			System.out.println(sb.toString());
 			String strs[] = sb.toString().split("<th>");
 			String strs2[] = null;
 			for(int i=1;i<strs.length;i++) {

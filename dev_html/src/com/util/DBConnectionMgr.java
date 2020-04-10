@@ -64,7 +64,7 @@ public class DBConnectionMgr {
 				con.close();
 			}
 		} catch (Exception e) {
-			System.out.println("Exception : "+e.toString());
+			e.printStackTrace();
 		}
 	}
 	//자바에서는 같은 이름의 메소드를 여러개 만들 수 있다.
@@ -81,7 +81,7 @@ public class DBConnectionMgr {
 				con.close();
 			}
 		} catch (Exception e) {
-			System.out.println("Exception : "+e.toString());
+			e.printStackTrace();
 		}
 	}
 	public void freeConnection(Connection con
@@ -89,13 +89,13 @@ public class DBConnectionMgr {
 		try {
 			//사용자원의 생성 역순으로 반환할것.	
 			if(cstmt!=null) {
-				pstmt.close();
+				cstmt.close();
 			}
 			if(con!=null) {
 				con.close();
 			}
 		} catch (Exception e) {
-			System.out.println("Exception : "+e.toString());
+			e.printStackTrace();
 		}
 	}
 	public void freeConnection(Connection con
@@ -107,13 +107,13 @@ public class DBConnectionMgr {
 				rs.close();
 			}
 			if(cstmt!=null) {
-				pstmt.close();
+				cstmt.close();
 			}
 			if(con!=null) {
 				con.close();
 			}
 		} catch (Exception e) {
-			System.out.println("Exception : "+e.toString());
+			e.printStackTrace();
 		}
 	}
 	

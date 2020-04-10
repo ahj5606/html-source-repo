@@ -1,0 +1,30 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<ROWSET>
+   <ROW num="1">
+      <MEM_NO>1</MEM_NO>
+      <MEM_ID>test</MEM_ID>
+      <MEM_PW>123</MEM_PW>
+      <MEM_NAME>이순신</MEM_NAME>
+      <ZIPCODE>21053</ZIPCODE>
+      <MEM_ADDR>서울시 구로구 고척동</MEM_ADDR>
+      <MEM_EMAIL>lee@hot.com</MEM_EMAIL>
+   </ROW>
+   <ROW num="2">
+      <MEM_NO>2</MEM_NO>
+      <MEM_ID>apple</MEM_ID>
+      <MEM_PW>123</MEM_PW>
+      <MEM_NAME>이성계</MEM_NAME>
+      <ZIPCODE>21054</ZIPCODE>
+      <MEM_ADDR>서울시 영등포구 당산동</MEM_ADDR>
+      <MEM_EMAIL>sung@hot.com</MEM_EMAIL>
+   </ROW>
+   <ROW num="3">
+      <MEM_NO>3</MEM_NO>
+      <MEM_ID>haha</MEM_ID>
+      <MEM_PW>123</MEM_PW>
+      <MEM_NAME>김유신</MEM_NAME>
+      <ZIPCODE>21555</ZIPCODE>
+      <MEM_ADDR>서울시 금천구 가산동</MEM_ADDR>
+      <MEM_EMAIL>kim@hot.com</MEM_EMAIL>
+   </ROW>
+</ROWSET>

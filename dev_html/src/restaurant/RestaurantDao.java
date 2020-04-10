@@ -1,5 +1,6 @@
 package restaurant;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,11 +13,38 @@ import java.util.Vector;
 
 import com.util.DBConnectionMgr;
 
+import oracle.jdbc.OracleCallableStatement;
+import oracle.jdbc.OracleTypes;
+
 public class RestaurantDao {
 	DBConnectionMgr dbMgr = DBConnectionMgr.getInstance();
 	Connection con = null;
 	PreparedStatement pstmt = null;
+	CallableStatement cstmt = null;
 	ResultSet rs =null;
+	
+	public String login(String u_id , String u_pw) {
+		String msg =null;
+		con = dbMgr.getConnection();
+		try {
+			cstmt = con.prepareCall("{call proc_login2020(?,?,?)}");
+			cstmt.setString(1, u_id);
+			cstmt.setString(2, u_pw);
+			cstmt.registerOutParameter(3, OracleTypes.VARCHAR);
+			cstmt.execute();
+			msg=cstmt.getString(3);
+			System.out.println("결과: "+msg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbMgr.freeConnection(con, cstmt);
+		}
+		return msg;
+	}
+
+	
+	
+	
 	public int restINS(Map<String,Object> pMap) {
 		int result =0;
 		StringBuilder sql = new StringBuilder();
@@ -86,6 +114,42 @@ public class RestaurantDao {
 		return rList;
 		
 	}
+	public List<Map<String,Object>> proc_restList(){
+		List<Map<String,Object>> rList = new ArrayList<Map<String, Object>>();
+		CallableStatement cstmt = null;
+		OracleCallableStatement ocstmt = null;
+		try {
+			con = dbMgr.getConnection();
+			cstmt = con.prepareCall("{call proc_restaurant(?)}");
+			cstmt.registerOutParameter(1, OracleTypes.CURSOR);
+			cstmt.execute();
+			ocstmt = (OracleCallableStatement)cstmt;
+			rs = ocstmt.getCursor(1);
+			Map<String,Object> rmap = null;
+			while(rs.next()) {
+				rmap = new HashMap<String, Object>();
+				rmap.put("res_num", rs.getInt("res_num"));
+				rmap.put("res_name", rs.getString("res_name"));
+				rmap.put("res_tel", rs.getString("res_tel"));
+				rmap.put("res_addr", rs.getString("res_addr"));
+				rmap.put("res_hate", rs.getInt("res_hate"));
+				rmap.put("res_like", rs.getInt("res_like"));
+				rmap.put("res_photo", rs.getString("res_photo"));
+				rmap.put("res_info", rs.getString("res_info"));
+				rmap.put("res_time", rs.getString("res_time"));
+				rmap.put("lat", rs.getDouble("lat"));
+				rmap.put("lng", rs.getDouble("lng"));
+				rList.add(rmap);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbMgr.freeConnection(con, cstmt, rs);
+		}
+		
+		return rList;
+		
+	}
 	public List<Map<String,Object>> mapRestList(){
 		List<Map<String,Object>> rList = new ArrayList<Map<String, Object>>();
 		StringBuilder sql = new StringBuilder();
@@ -112,9 +176,47 @@ public class RestaurantDao {
 		}
 		
 		return rList;
-		
+	}
+	public List<Map<String,Object>> proc_mapRestList(){
+		List<Map<String,Object>> rList = new ArrayList<Map<String, Object>>();
+		CallableStatement cstmt = null;
+		OracleCallableStatement ocstmt = null;
+		try {
+			con = dbMgr.getConnection();
+			cstmt = con.prepareCall("{call proc_restaurantMap(?)}");
+			cstmt.registerOutParameter(1, OracleTypes.CURSOR);
+			cstmt.execute();
+			ocstmt = (OracleCallableStatement)cstmt;
+			rs = ocstmt.getCursor(1);
+			Map<String,Object> rmap = null;
+			while(rs.next()) {
+				rmap = new HashMap<String, Object>();
+				rmap.put("res_name", rs.getString("res_name"));
+				rmap.put("res_photo", rs.getString("res_photo"));
+				rmap.put("lat", rs.getDouble("lat"));
+				rmap.put("lng", rs.getDouble("lng"));
+				rList.add(rmap);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			dbMgr.freeConnection(con, cstmt, rs);
+		}
+		return rList;
 	}
 	
-	
+	public static void main(String[] args) {
+		RestaurantDao rdao = new RestaurantDao();
+		List<Map<String,Object>> rList = rdao.proc_restList();
+		if(rList!=null) {
+			System.out.println(rList);
+		}
+		rList = null;
+		rList = rdao.proc_mapRestList();
+		if(rList!=null) {
+			System.out.println(rList.size());
+		}
+	}
 	
 }

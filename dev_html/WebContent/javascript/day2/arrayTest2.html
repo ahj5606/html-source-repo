@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>제이쿼리 2차배열 사용 -each함수 사용</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+//jquert를 사용하여 DOM구성이 완료되었음. -js로 태그들을 접근할 수 있는 상태임.
+	$(document).ready(function() {
+		var array = [
+			{name:'Naver',link:'https://www.naver.com'},
+			{name:'Daum',link:'https://www.daum.net'},
+			{name:'Google',link:'https://www.google.com'}
+		];
+		$.each(array,function(index,item){
+			var output ='';
+			output +='<a href="'+item.link+'">';
+			output +='<h1>'+item.name+'</h1>';
+			output +='</a>';
+			document.body.innerHTML += output;
+		});
+	});
+</script>
+</body>
+</html>

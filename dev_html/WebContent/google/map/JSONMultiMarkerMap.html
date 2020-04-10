@@ -7,40 +7,50 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEBhc1C6-KT0SPygWxZUsXbeTb1USywPc"></script>
 </head>
 <body>
+<div>
 	<div id="d_map" style="width:800px; height:600px;"></div>
+	<div> </div>
+</div>
 	<script type="text/javascript">
 		var map = new google.maps.Map(document.getElementById('d_map'),{
 			zoom:14
 			,center: new google.maps.LatLng(37.480380,126.882812)
 			,mapTypeId:google.maps.MapTypeId.ROADMAP
 		});
-		var infowindow = new google.maps.InfoWindow();
+		var infowindow = new google.maps.InfoWindow();//윈도우 창  생성 말풍선을 클릭했을 때 열림
 		var maker;//5개가 출력
-		var i;//마커 생성시 부여한 인덱스 값.
-		$.ajax({
+		var i;//마커 생성시 부여한 인덱스 값. 0~4 마커 5개
+		$.ajax({ //비동기 통신 객체를 지원 -> 통신 ->요청->응답
 			url:'jsonMapList.jsp'
 			,dataType:'json'
 			,success:function(data){
-				var strData =JSON.stringify(data);
-				var jsonData = JSON.parse(strData);
+				//$("#d_map").text(data);[object object]
+				var strData =JSON.stringify(data);	//직관적인 정보로 변환 (구조체)
+				
+				
+				var jsonData = JSON.parse(strData); //배열로 변환
 				
 				for(var i=0;i<jsonData.length;i++){
 					marker = new google.maps.Marker({
-						id: i
+						id: i	//0,1,2,3,4 -마커의 인덱스 정보
+						//포지션 값도 배열로 변경됨.
 					   ,position: new google.maps.LatLng(jsonData[i].lat ,jsonData[i].lng)
-					   ,map:map
-					   ,title: jsonData[i].res_name
-					});					
-					google.maps.event.addListener(marker,'click',(function(marker,i){
-						return function(){
-							infowindow.setContent('<b>'+jsonData[i].res_name+'</b>');
+					   ,map:map	//지도는 하나
+					   ,title: jsonData[i].res_name //마커가 5개이므로 식당이름 5개 분류
+					});	///마커
+					//마커 5개가 for문 안에서 객체 생성되니까 이벤트도 안에서 건다.
+					google.maps.event.addListener(marker,'click',(function(marker,i){//마커에 클릭이벤트
+						//addListener 함수의 리턴값이 변수가 아닌 함수임.
+						return function(){ //함수의 결과는 윈도우 창을 열여줌 (click된 마커마다 다름)
+							infowindow.setContent('<b>'+jsonData[i].res_name+'</b><br>');
 							infowindow.open(map,marker);
 						}//end of 반환함수가 종료
 					})(marker,i));
+					//마커를 생성했을때 click 이벤트 처리하기 
 					if(marker){//자바스크립트에서는 0이 아니면 모두 true
 						marker.addListener('click',function(){
-							map.setZoom(15);
-							map.setCenter(this.getPosition());
+							map.setZoom(15);//상세보기 처리(14->15)
+							map.setCenter(this.getPosition()); //마커가있는 위치로 
 						});							
 					}
 				}///////end of for
