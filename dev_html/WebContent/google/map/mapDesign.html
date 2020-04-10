@@ -61,6 +61,16 @@
 				value:""
 			});
     	}
+    	function like(name){
+    		var store = name;
+    		alert(name);
+    		alert("좋아요"+name);
+    		
+    	}
+    	function hate(name){
+    		alert("싫어요"+name);
+    		
+    	}
     </script>
 </head>
 <body>
@@ -104,10 +114,10 @@
 		<div id="d_store">
 			<table width="100%" border="1" borderColor="red">
 				<tr>
-					<td>좋아요:</td>
+					<td>좋아요:<div id="like"></div></td>
 				</tr>
 				<tr>
-					<td>싫어요:</td>
+					<td>싫어요:<div id="hate"></div></td>
 				</tr>
 			</table>
 		</div>
@@ -135,7 +145,6 @@
 				//$("#d_map").text(data);[object object]
 				var strData =JSON.stringify(data);	//직관적인 정보로 변환 (구조체)
 				
-				
 				var jsonData = JSON.parse(strData); //배열로 변환
 				
 				for(var i=0;i<jsonData.length;i++){
@@ -150,7 +159,11 @@
 					google.maps.event.addListener(marker,'click',(function(marker,i){//마커에 클릭이벤트
 						//addListener 함수의 리턴값이 변수가 아닌 함수임.
 						return function(){ //함수의 결과는 윈도우 창을 열여줌 (click된 마커마다 다름)
-							infowindow.setContent('<b>'+jsonData[i].res_name+'</b><br>');
+							var name = jsonData[i].res_name;
+							alert(name);
+							$("#like").html(jsonData[i].res_like);
+							$("#hate").html(jsonData[i].res_hate);
+							infowindow.setContent('<b>'+jsonData[i].res_name+'</b><br> <button id="btn_like" onclick="like(\""+name+"\")">좋아요</button> <button id="btn_hate">싫어요</button>' );
 							infowindow.open(map,marker);
 						}//end of 반환함수가 종료
 					})(marker,i));

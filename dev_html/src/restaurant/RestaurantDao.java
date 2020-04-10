@@ -153,7 +153,7 @@ public class RestaurantDao {
 	public List<Map<String,Object>> mapRestList(){
 		List<Map<String,Object>> rList = new ArrayList<Map<String, Object>>();
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT res_name,res_photo,lat,lng");
+		sql.append("SELECT res_name,res_photo,lat,lng,res_like,res_hate");
 		sql.append(" FROM restaurant");
 		try {
 			con = dbMgr.getConnection();
@@ -164,6 +164,8 @@ public class RestaurantDao {
 				rmap = new HashMap<String, Object>();
 				rmap.put("res_name", rs.getString("res_name"));
 				rmap.put("res_photo", rs.getString("res_photo"));
+				rmap.put("res_like", rs.getString("res_like"));
+				rmap.put("res_hate", rs.getString("res_hate"));
 				rmap.put("lat", rs.getDouble("lat"));
 				rmap.put("lng", rs.getDouble("lng"));
 				rList.add(rmap);
