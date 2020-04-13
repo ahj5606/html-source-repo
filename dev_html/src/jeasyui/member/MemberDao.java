@@ -32,7 +32,7 @@ public class MemberDao {
 		List<Map<String,Object>> mList =new ArrayList<Map<String,Object>>();
 		StringBuilder sql = new StringBuilder();
 		con = dbMgr.getConnection();
-		sql.append("SELECT mem_no,mem_id,mem_pw,mem_name,zipcode,mem_addr,mem_email FROM member_t");
+		sql.append("SELECT mem_no,mem_id,mem_pw,mem_name,zipcode,mem_addr,mem_email FROM test_member");
 		Map<String,Object> rMap = null;
 		try {
 			pstmt = con.prepareStatement(sql.toString());
@@ -99,7 +99,7 @@ public class MemberDao {
 		if(mList!=null) {
 			System.out.println("mList.size====> "+mList.size());
 		}
-		System.out.println("================ "+mList.size());
+		System.out.println("================ ");
 		mList = null;
 		mList = mdao.proc_memberList();
 		if(mList!=null) {
