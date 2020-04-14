@@ -73,68 +73,6 @@ statusText: HTTP상태 코드에대한 문저열 반환함. OK / Not Found
         //대입연산자 오른쪽은 상태변화에따라 호출될 함수 이름을 적는다(괄호없음)
 		//이떄 서버로 전송이 일어남 . 목적지는 boardAction.jsp 페이지 임.
 	}
-	function sold_process(){
-		//alert(xhrObject.readyState);//0->1->2->3->4 단계별로 상태값에 대한 정의
-		if(xhrObject.readyState == 4){
-			if(xhrObject.status==200){
-				var newTotal = xhrObject.responseText;
-				//alert("newTotal"+newTotal+"  ,"+newTotal.length +"  ,"+newTotal.trim().length);
-				var boardSoldEl = document.getElementById("boardSold");
-				replaceText(boardSoldEl,newTotal);
-				//보드 한개당 마진 금액 계산
-				var costEl = document.getElementById("cost");
-				var priceEl = document.getElementById("price");
-				var cost = getText(costEl);
-				var price = getText(priceEl);
-				var qty = getText(boardSoldEl);
-				var result = Number(price) - Number(cost);
-				document.getElementById("result").innerText = Number(result)*Number(qty);
-			}/////////end of 200 OK 상태값
-		}//////////end of 4로 처리된 완료된 상태
-	}
-	//span태그가 가지고 있는 텍스트 노드값 읽어오기
-	function getText(el){
-		var text ="";
-		if(el!=null){
-			if(el.childNodes){
-				for(var i=0;i<el.childNodes.length;i++){
-					var childNode = el.childNodes[i];
-					//너 텍스트 노드니?
-					if(childNode.nodeValue !=null){
-						text = text+childNode.nodeValue;
-					}
-				}			
-					
-			}
-		}
-		return text;
-	}
-	//기존 TextNode의 값을 다른 문자열로 바꾸기
-	/********************************************************************
-	param1 :document.getElementBuId("boardSold")
-	param2 :xhrObject.responseText;
-	*********************************************************************/
-	function replaceText(el, value){
-		if(el!=null){
-			clearText(el);//기존에 있던 10을 지워주세요
-			//새로운 텍스트 노드 15를 생성하기
-			var newNode = document.createTextNode(value);
-			//위에서 생성한 텍스트 노드 값을 el에 붙이는 함수 호출하기
-			el.appendChild(newNode);
-		}
-		
-	}
-	//기존 태그 안에 문자열 지우는 함수 구현
-	function clearText(el){
-		if(el !=null ){
-			if(el.childNodes){
-				for(var i=0;i<el.childNodes.length;i++){
-					var childNode = el.childNodes[i];
-					el.removeChild(childNode);
-				}
-			}			
-		}
-	}
 </script>
 </head>
 <body>
