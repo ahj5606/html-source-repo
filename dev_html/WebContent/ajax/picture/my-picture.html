@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+	.t_picture{
+		border: 1px solid black;
+	}
+	tr{
+		border:1px solid black;
+	}
+	th{
+		border:1px solid black;
+	}
+	#d_detail{
+		display:absoulte;
+		margin-left:300px;
+		width:60%;
+		height:800px;
+	}
+	#d_talbe{
+		width: 20%;
+		float: left;
+		height:700px;
+	}
+	
+</style>
+<script type="text/javascript">
+	function mouseOverEvent(text){
+		var temp = text;
+		$("#d_detail").text(temp);
+		var param ="print_name="+temp;
+		$.ajax({
+			url:"mouseover.jsp"
+			,datatype:"text"
+			,data:param
+			,success:function(html){
+				$("#d_detail").html(html);
+				$("#d_detail").show();
+			}
+			,error:function(errordata){
+				alert(errordata.responseText);
+			}
+		});
+		
+		
+	}
+	function mouseOutEvent(){
+		$("#d_detail").hide();
+	}
+</script>
+</head>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#d_detail").hide();
+	});
+	
+</script>
+<div id="d_talbe">
+	<table class="t_picture">
+		<thead>
+			<th>그림</th>
+			<th>목록</th>
+		</thead>
+		<tr>
+			<td><img src="picture1.jpg"></td>
+			<th><span onMouseOver="mouseOverEvent($(this).text())" onmouseout="mouseOutEvent()">그림1</span> </th>
+		</tr>
+		<tr>
+			<th><img src="picture2.jpg"></th>
+			<th><span onMouseOver="mouseOverEvent($(this).text())" onmouseout="mouseOutEvent()">그림2</span> </th>
+		</tr>
+		<tr>
+			<th><img src="picture3.jpg"></th>
+			<th><span onMouseOver="mouseOverEvent($(this).text())" onmouseout="mouseOutEvent()">그림3</span> </th>
+		</tr>
+		<tr>
+			<th><img src="picture4.jpg"></th>
+			<th><span onMouseOver="mouseOverEvent($(this).text())" onmouseout="mouseOutEvent()">그림4</span> </th>
+		</tr>
+	</table>
+</div>
+<div id="d_detail"></div>
+</body>
+</html>

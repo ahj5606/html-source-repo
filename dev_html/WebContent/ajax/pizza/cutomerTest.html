@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<style type="text/css">
+	div#d_json{
+		width: 500px;
+		height: 600px;
+		background-color: orange;
+	
+	}
+
+</style>
+</head>
+<body>
+<div id="d_info"></div>
+<script type="text/javascript">
+	$.ajax({
+		url:"customerinfo.jsp"
+		,method:"get"	//or post=> data속성 같이 사용함. 
+		,dataType:"json"
+		,success:function(data){
+			var res = JSON.stringify(data);
+			$("#d_info").text(res);
+			var jsondata = JSON.parse(res);//배열로 전환
+			for(var i=0;i<jsondata.length;i++){
+				alert(jsondata[i].mem_tel);
+				if("010-5555-5555"==jsondata[i].mem_tel){
+					alert(jsondata[i].mem_tel);
+				}
+				
+			}
+			
+		}
+		,error:function(data){
+			alert(data.responseText);
+		}
+	}); 
+</script>
+</body>
+</html>
