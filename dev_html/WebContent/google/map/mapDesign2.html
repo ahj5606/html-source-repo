@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <style type="text/css">
     	#btn_login{
     		font-size: 10px;
@@ -18,8 +19,15 @@
     		display: block;
     		height: 70px;
     	}
+    	div#d_resList{
+    		border:thin dotted red;
+    		padding:5px;
+    		text-align:left;
+    		
+    	}
     </style>
     <script type="text/javascript">
+   		var c_name =null;
     	function login(){
     		var u_id =$("#tb_id").val();
     		var u_pw =$("#tb_pw").val();
@@ -37,37 +45,93 @@
     			if(mem_name.trim()=="비밀번호가 틀립니다." || mem_name.trim()=="아이디가 존재하지 않습니다"){
     				alert(mem_name);
     			}else{
+		    		$.cookie("c_name",mem_name);
 		    		$("#d_login").hide();
 					$("#d_logout").show();
-		    		$("#d_logout").html("<b>"+mem_name+"님 환영합니다.</b><button onclick='logout()'>로그아웃</button>");
+					$("#logok").html("<b>"+mem_name+"님</b>");
+					$("#d_resList").show();
     			}
     		});
-			$("#tb_id").textbox({
-				value:""
-			});
-			$("#tb_pw").textbox({
-				value:""
-			});
+    		$("#tb_id").textbox('setValue','');
+			$("#tb_pw").textbox('setValue','');
     	};
     	function logout(){
     		alert("로그아웃 버튼 호출");
+			$.cookie('c_name',null);
     		$("#d_login").show();
 			$("#d_logout").hide();
-			$("#d_logout").html("<b>님 환영합니다.</b><button onclick='logout()'>로그아웃</button>");
-			$("#tb_id").textbox({
-				value:""
-			});
-			$("#tb_pw").textbox({
-				value:""
-			});
+			$("#d_resList").hide();
+    		$("#tb_id").textbox('setValue','');
+			$("#tb_pw").textbox('setValue','');
+		
     	}
-    	function like(name){
-    		alert(name);
+    	function refresun(res_num){
+    		
+    		fetch('jsonProcMapList.jsp',{
+				method:'post'
+			}).then(res=>res.text()).then(function(text){
+    			var imsi = text.trim();
+    			var resDoc = JSON.parse(imsi);
+    			var resList = '<table>';
+    			for(var i=0;i<resDoc.length;i++){
+    				resList +="<tr><td>";
+    				resList +=resDoc[i].res_name+'<br>';
+    				resList +='<img src=like.png width=20 height=20/>'+resDoc[i].res_like+'<br>';
+    				resList +='<img src=hate.png width=20 height=20/>'+resDoc[i].res_hate+'<br>';
+    				resList +="</tr></td>";
+    				
+    			}
+    			resList += '</table>';
+    			$("#d_resList").html(resList);
+    		});
+			
     		
     	}
-    	function hate(name){
-    		alert(name);
+    	function like(res_num){
+    		c_name =$.cookie('c_name');
+    		if(c_name!=null && c_name.length>0 && c_name!="null"){
+				$.ajax({
+					url:'likeAction.jsp'
+					,method:'POST'
+					,data:'res_num='+res_num
+					,success:function(result){
+						if(result==1){
+							refresun(res_num);
+						};
+					}
+					,error:function(errorData){
+						alert(errorData.responseText);
+					}
+				});
+    			
+    			
+    		}else{
+    			alert("로그인이 필요한 서비스 입니다.");
+    			return;
+    		}
     		
+    	}
+    	function hate(res_num){
+    		c_name =$.cookie('c_name');
+    		if(c_name!=null && c_name.length>0 && c_name!="null"){
+    			$.ajax({
+					url:'hateAction.jsp'
+					,method:'POST'
+					,data:'res_num='+res_num
+					,success:function(result){
+						if(result==1){
+							refresun(res_num);
+						};
+					}
+					,error:function(errorData){
+						alert(errorData.responseText);
+					}
+				});
+    		
+    		}else{
+    			alert("로그인이 필요한 서비스 입니다.");
+    			return;
+    		}
     	}
     </script>
 </head>
@@ -87,7 +151,7 @@
 					<tr>
 						<td><input id="tb_id" name="mem_id"  data-options="iconCls:'icon-man'" class="easyui-textbox" prompt="아이디" iconWidth="25"  style="width:120px;height:25px;"></td>
 						<td rowspan="2">
-							<a id="btn" href="javascript:login()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">login</a>
+							<a id="btn" style="height:60px" href="javascript:login()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">login</a>
 						</td>
 					</tr>
 					<tr>
@@ -100,32 +164,37 @@
 <!--로그아웃 화면 시작 -======================= -->
 		<div id="d_logout">
 			<form id="f_logout">
-				<table width="100%" border="1">
+				<table width="100%" border="0">
 					<tr>
-						<td>ooo님환영합니다.</td>
-						<td>로그아웃</td>
+						<td style="width:90px"><span id="logok">환영</span></td>
+						<td><a id="btn_logout" style="height:30px"
+						 href="javascript:logout()" class="easyui-linkbutton">로그아웃</a></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 <!--로그아웃 화면 끝 ============================= -->
-		<div id="d_store">
-			<table width="100%" border="1" borderColor="red">
-				<tr>
-					<td>좋아요:<div id="like"></div></td>
-				</tr>
-				<tr>
-					<td>싫어요:<div id="hate"></div></td>
-				</tr>
-			</table>
-		</div>
+<!--====================================== 식당 목록 시작 ========================================-->
+		<div id="d_resList">식당목록<div id="like_hate"></div></div>
+		
+<!--====================================== 식당 목록 끝 ========================================-->
 		</td>
 	</tr>
 </table>
 <script type="text/javascript">
 		$(document).ready(function(){
-			$("#d_login").show();
-			$("#d_logout").hide();
+			c_name=null;
+			c_name = $.cookie('c_name');
+			if(c_name!=null && c_name.length>0 && c_name!="null"){	//쿠키값이 존재하니? 로그인
+				$("#logok").html("<b>"+c_name+"님</b>");
+				$("#d_login").hide();
+				$("#d_logout").show();
+				$("#d_resList").show();
+			}else{
+				$("#d_login").show();
+				$("#d_logout").hide();
+				$("#d_resList").hide();
+			}
 		});
 /*구글맵 시작 ======================================  */
 		var map = new google.maps.Map(document.getElementById('d_map'),{
@@ -137,7 +206,7 @@
 		var maker;//5개가 출력
 		var i;//마커 생성시 부여한 인덱스 값. 0~4 마커 5개
 		$.ajax({ //비동기 통신 객체를 지원 -> 통신 ->요청->응답
-			url:'jsonMapList.jsp'
+			url:'jsonProcMapList.jsp'
 			,dataType:'json'
 			,success:function(data){
 				//$("#d_map").text(data);[object object]
@@ -156,11 +225,20 @@
 					//마커 5개가 for문 안에서 객체 생성되니까 이벤트도 안에서 건다.
 					google.maps.event.addListener(marker,'click',(function(marker,i){//마커에 클릭이벤트
 						//addListener 함수의 리턴값이 변수가 아닌 함수임.
+						//자바스크립트에서는 값에 싱글 쿼테이션이나 더블 쿼테이션이 없으면 변수로 취급하여
+						//undifind 오류 메시지 출력
 						return function(){ //함수의 결과는 윈도우 창을 열여줌 (click된 마커마다 다름)
 							var name = jsonData[i].res_name;
-							$("#like").html(jsonData[i].res_like);
-							$("#hate").html(jsonData[i].res_hate);
-							infowindow.setContent('<b>'+jsonData[i].res_name+'</b><br> <button id="btn_like" onclick="like(\'' + jsonData[i].res_name+ '\')"><img src="like.jpg" width="50px" height="50px"/></button> <button id="btn_hate" onclick="hate(\'' + jsonData[i].res_name+ '\')"   ><img src="hate.jpg"  width="50px" height="50px"/></button>' );
+							var content ='<b>식당이름: '+jsonData[i].res_name+'</b>';
+								content +='<br>';
+								content +='<b>전화번호: '+jsonData[i].res_tel+'</b>';
+								content +='<br>';
+								content +='<b>좋아요: <a href="javascript:like('+jsonData[i].res_num+')"><img src="like.png" width=20 height=20/></a>';
+								content +='&nbsp;&nbsp;';
+								content +='<b>싫어요: <a href="javascript:hate('+jsonData[i].res_num+')"><img src="hate.png" width=20 height=20/></a>';
+						
+							infowindow.setContent(content);
+							
 							infowindow.open(map,marker);
 						}//end of 반환함수가 종료
 					})(marker,i));

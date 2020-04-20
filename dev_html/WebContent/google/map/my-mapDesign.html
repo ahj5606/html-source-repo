@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <style type="text/css">
     	#btn_login{
     		font-size: 10px;
@@ -20,40 +21,42 @@
     	}
     </style>
     <script type="text/javascript">
-    	function login(){
-    		var u_id =$("#tb_id").val();
-    		var u_pw =$("#tb_pw").val();
-    		var mem_name='';
-    		//alert("사용자가 입력한 아이디"+u_id);
-    		//location.href="loginAction.jsp?mem_id="+u_id?;
-    		$("#f_login").attr("method","get");
-    		$("#f_login").attr("action","loginAction.jsp");//자바코드를 사용함.
-    		$("#f_login").submit();
-    		fetch("loginAction.jsp?mem_id="+u_id+"&mem_pw="+u_pw,{
-    			method:"POST"
-    		//}).then(res => res.text()).then(res=>console.log(res));
-    		}).then(res => res.text()).then(function(data){
-    			mem_name=data;
-    			if(mem_name.trim()=="비밀번호가 틀립니다." || mem_name.trim()=="아이디가 존재하지 않습니다"){
-    				alert(mem_name);
-    			}else{
-		    		$("#d_login").hide();
-					$("#d_logout").show();
-		    		$("#d_logout").html("<b>"+mem_name+"님 환영합니다.</b><button onclick='logout()'>로그아웃</button>");
-    			}
-    		});
-			$("#tb_id").textbox({
-				value:""
-			});
-			$("#tb_pw").textbox({
-				value:""
-			});
-    	};
+    function login(){
+		var u_id =$("#tb_id").val();
+		var u_pw =$("#tb_pw").val();
+		var mem_name='';
+		//alert("사용자가 입력한 아이디"+u_id);
+		//location.href="loginAction.jsp?mem_id="+u_id?;
+		$("#f_login").attr("method","get");
+		$("#f_login").attr("action","loginAction.jsp");//자바코드를 사용함.
+		$("#f_login").submit();
+		fetch("loginAction.jsp?mem_id="+u_id+"&mem_pw="+u_pw,{
+			method:"POST"
+		//}).then(res => res.text()).then(res=>console.log(res));
+		}).then(res => res.text()).then(function(data){
+			mem_name=data;
+			if(mem_name.trim()=="비밀번호가 틀립니다." || mem_name.trim()=="아이디가 존재하지 않습니다"){
+				alert(mem_name);
+			}else{
+	    		$("#d_login").hide();
+				$("#d_logout").show();
+	    		$("#d_logout").html("<b>"+mem_name+"님 환영합니다.</b><button onclick='logout()'>로그아웃</button>");
+	    		$.cookie("c_name",mem_name);
+			}
+		});
+		$("#tb_id").textbox({
+			value:""
+		});
+		$("#tb_pw").textbox({
+			value:"" 
+		});
+	};
     	function logout(){
     		alert("로그아웃 버튼 호출");
     		$("#d_login").show();
 			$("#d_logout").hide();
 			$("#d_logout").html("<b>님 환영합니다.</b><button onclick='logout()'>로그아웃</button>");
+			$.cookie('c_name',null);
 			$("#tb_id").textbox({
 				value:""
 			});
@@ -62,11 +65,48 @@
 			});
     	}
     	function like(name){
-    		alert(name);
+    		var c_name =null;
+			//쿠키에서 꺼낸 이름이 null이면 로그인을 하지 않음.
+			//null이 아니면 로그인 한 경우
+			c_name = $.cookie('c_name');
+    		if(c_name==null && c_name.length<0){
+	    		$.ajax({
+	    			url:"likeHate.jsp"
+	    			,method:"post"
+	    			,data:"like="+name
+	    			,success:function(like){
+	    				$("#like").html(like);
+	    			}
+	    		});
+    		
+    		}else{
+    			alert("로그인이 필요한 기능입니다.");
+    			return;
+    			
+    		}
     		
     	}
     	function hate(name){
-    		alert(name);
+    		var c_name =null;
+			//쿠키에서 꺼낸 이름이 null이면 로그인을 하지 않음.
+			//null이 아니면 로그인 한 경우
+			c_name = $.cookie('c_name');
+    		if(c_name==null && c_name.length<0){
+	    		$.ajax({
+	    			url:"likeHate.jsp"
+	    			,method:"post"
+	    			,data:"hate="+name
+	    			,success:function(hate){
+	    				$("#hate").html(hate);
+	    			}
+	    		});
+    		}else{
+    			
+    			alert("로그인이 필요한 기능입니다.");
+    			return;
+    			
+    		}
+    		
     		
     	}
     </script>
@@ -87,7 +127,7 @@
 					<tr>
 						<td><input id="tb_id" name="mem_id"  data-options="iconCls:'icon-man'" class="easyui-textbox" prompt="아이디" iconWidth="25"  style="width:120px;height:25px;"></td>
 						<td rowspan="2">
-							<a id="btn" href="javascript:login()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">login</a>
+							<a id="btn" style="height:60px" href="javascript:login()" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">login</a>
 						</td>
 					</tr>
 					<tr>
@@ -124,8 +164,18 @@
 </table>
 <script type="text/javascript">
 		$(document).ready(function(){
-			$("#d_login").show();
-			$("#d_logout").hide();
+			var c_name =null;
+			//쿠키에서 꺼낸 이름이 null이면 로그인을 하지 않음.
+			//null이 아니면 로그인 한 경우
+			c_name = $.cookie('c_name');
+			if(c_name==null ||c_name=="null"){	//쿠키값을 numm로 바꾸면서 문자열로 null값이 들어감 '?'
+				$("#d_login").show();
+				$("#d_logout").hide();
+			}else{
+				$("#d_logout").html(c_name+"<b>님 환영합니다.</b><button onclick='logout()'>로그아웃</button>");
+				$("#d_login").hide();
+				$("#d_logout").show();
+			}
 		});
 /*구글맵 시작 ======================================  */
 		var map = new google.maps.Map(document.getElementById('d_map'),{
@@ -160,7 +210,7 @@
 							var name = jsonData[i].res_name;
 							$("#like").html(jsonData[i].res_like);
 							$("#hate").html(jsonData[i].res_hate);
-							infowindow.setContent('<b>'+jsonData[i].res_name+'</b><br> <button id="btn_like" onclick="like(\'' + jsonData[i].res_name+ '\')"><img src="like.jpg" width="50px" height="50px"/></button> <button id="btn_hate" onclick="hate(\'' + jsonData[i].res_name+ '\')"   ><img src="hate.jpg"  width="50px" height="50px"/></button>' );
+							infowindow.setContent('<b>'+jsonData[i].res_name+'</b><br> <button id="btn_like" onclick="like(\'' + jsonData[i].res_name+ '\')"><img src="like.png" width="50px" height="50px"/></button> <button id="btn_hate" onclick="hate(\'' + jsonData[i].res_name+ '\')"   ><img src="hate.png"  width="50px" height="50px"/></button>' );
 							infowindow.open(map,marker);
 						}//end of 반환함수가 종료
 					})(marker,i));
