@@ -9,14 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class NowServlet extends HttpServlet{
+public class test extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	throws ServletException, IOException{
-		response.setContentType("text/html; charset=utf-8"); 
-		String temp = request.getParameter("id");
-		PrintWriter out = response.getWriter();
-		out.print("현재시간은"+new Date()+"입니다.<br>");
-		out.print(temp);
-	}
-	
+			throws ServletException, IOException{
+				response.setContentType("text/html; charset=utf-8"); 
+				PrintWriter out = response.getWriter();
+				out.print("현재시간은"+new Date()+"입니다.");
+			}
+
 }
