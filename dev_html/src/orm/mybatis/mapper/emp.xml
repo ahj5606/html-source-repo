@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="orm.mybatis.mapper.empMapper">
 	<select id="empList" parameterType="map" resultType="map">
-		select empno,ename,job,mgr,hiredate,sal,comm,deptno 
+		select empno,ename,job,mgr,TO_CHAR(hiredate,'YYYY-MM-DD') hiredate,sal,comm,deptno 
 		from emp
 		<if test="empno > 0">
 			where empno=#{empno}

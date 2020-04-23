@@ -138,8 +138,8 @@
 	</script>
 	<input id="book_title" class="easyui-textbox" style="width:400px"/> 
 	<div id="d_search">조회결과처리화면</div>
-	<div id="d_detail2">mouseover처리화면-2</div>
-	<div id="d_detail3">mouseover조회결과처리화면-3</div>
+	<div id="d_detail2"></div>
+	<div id="d_detail3"></div>
 </body>
 </html>
 
