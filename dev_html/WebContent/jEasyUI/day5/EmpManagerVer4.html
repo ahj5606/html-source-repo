@@ -36,21 +36,55 @@
 	}
 	function saverow(target){
 	    $('#dg_emp').datagrid('endEdit', getRowIndex(target));
+	   	
 	}
 	function cancelrow(target){
 	    $('#dg_emp').datagrid('cancelEdit', getRowIndex(target));
 	}
+	function empnonSearch(){
+		var s_empno =$("#s_empno").val();
+		$("#dg_emp").datagrid({
+			url:'jsonEmpList.jsp?empno='+s_empno
+			
+			
+		})
+	}
 </script>
 </head>
 <body>
+<!--========================== 검색 조건 추가하기 시작 ====================================  -->
+<div id="tbar_emp">
+	<form id="f_search">
+		<table>
+			<tr>
+				<td width="190px">
+					<label width="80px">사원번호</label>
+					<input id="s_empno" name="s_empno" class="easyui-searchbox"  data-options="prompt:'사원번호' , searcher:empnonSearch" style="width:120px">
+				</td>
+			</tr>
+			<tr>
+				<td>
+			        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="empList()">사원 조회</a>
+			        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">사원 등록</a>
+			        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">사원 수정</a>
+			        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">사원 삭제</a>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+<!--========================== 검색 조건 추가하기 끝 ====================================  -->
+
    <table id="dg_emp"></table>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#dg_emp').datagrid({
-			width:1200
+			toolbar: '#tbar_emp'
+			,width:1200
 			,hegith:850
 			,title:'사원테이블'
-			,url:'jsonEmpList.jsp'
+			,url:'jsonEmpList.jsp' 
 			,columns:[[
 			    {field:'ck',checkbox:true,width:50,align:'center'}
 			    ,{field:'EMPNO',title:'사원번호',width:100,align:'center',editor:'numberbox'}
@@ -60,7 +94,17 @@
 			    ,{field:'MGR',title:'MGR',width:90,align:'center',editor:'numberbox' ,hidden:'true'}
 			    ,{field:'SAL',title:'급여',width:100,align:'center',editor:'numberbox'}
 			    ,{field:'COMM',title:'인센티브',width:100,align:'center',editor:'numberbox'}
-			    ,{field:'DEPTNO',title:'부서번호',width:100,align:'center',editor:'combobox'}
+			    ,{field:'DEPTNO',title:'부서번호',width:100,align:'center'
+			   		,editor:{
+			   			type:'combobox'
+			   			,options:{
+								url:'jsonDeptList.jsp'
+								,valueField: 'DEPTNO'//실제 서버에 넘어가는 필드
+								,textField: 'DNAME'//화면에 출력되는 필드
+								,required: true
+						    }///////////end of options
+				   		}//end of editor
+			    	}
 			    ,{field:'action',title:'Action',width:180,align:'center',
 	                formatter:function(value,row,index){
 	                    if (row.editing){
@@ -94,25 +138,6 @@
 	            row.editing = false;
 	            $(this).datagrid('refreshRow', index);
 	        }
-			,toolbar: [
-				{
-					iconCls: 'icon-search'
-					,text:'사원 조회'	
-					,handler: function(){empList();}
-				},'-',{
-					iconCls: 'icon-add'
-					,text:'사원 등록'
-					,handler: function(){alert('add')}
-				},'-',{
-					iconCls: 'icon-edit'
-						,text:'사원 수정'
-						,handler: function(){alert('edit')}
-				},'-',{
-					iconCls: 'icon-remove'
-						,text:'사원 삭제'
-						,handler: function(){alert('remove')}
-				}
-			]
 		}); 
 	});
 

@@ -21,7 +21,7 @@
  				,error:function(date){
  				}
  			});	 
- 		}, 6000);
+ 		}, 1000);
  	}
  	function stoptest(){
  		clearInterval(timer);

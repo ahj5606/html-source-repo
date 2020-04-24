@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orm.mybatis.mapper.zipcodeMapper">
+	<select id="zdoList"  resultType="map">
+		select zdo from zipcode_t group by zdo order by zdo asc
+	</select>
+	<select id="siguList" parameterType="map" resultType="map">
+		select sigu from zipcode_t where zdo=#{zdo} group by sigu order by sigu asc
+	</select>
+	<select id="dongList" parameterType="map" resultType="map">
+		select dong from zipcode_t where sigu=#{sigu} and zdo=#{zdo} group by dong  order by dong asc
+	</select>
+	<select id="zipcodeList" parameterType="map" resultType="map">
+		SELECT UID_NO,ZIPCODE,ZDO,SIGU,DONG,RI,BUNGI,APTNAME,ADDRESS 
+			from zipcode_t 
+ 		WHERE zdo=#{zdo} and sigu=#{sigu} and dong =#{dong}
+ 		order by ZIPCODE asc
+	</select>
+</mapper>

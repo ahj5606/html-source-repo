@@ -25,5 +25,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="orm/mybatis/mapper/emp.xml" />
 		<mapper resource="orm/mybatis/mapper/dept.xml" />
 		<mapper resource="orm/mybatis/mapper/book.xml" />
+		<mapper resource="orm/mybatis/mapper/zipcode.xml" />
 	</mappers>
 </configuration>

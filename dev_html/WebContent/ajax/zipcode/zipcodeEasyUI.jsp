@@ -1,8 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>js코드만 사용</title>
+<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
@@ -11,24 +13,16 @@
 <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
 </head>
 <body>
-<!-- 
-valueField-실제 서버로 전송되는 필드 
-textField - 화면에 출력되는 필드
-  --> 
-<input id="cb_title"/>
+<div id="dg_sel"></div>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$("#cb_title").combobox({
-			data:[
-				{label:'java',value:"자바	"}
-				,{label:'oracle',value:"오라클"}
-				,{label:'ajax',value:"에이잭스"}
-			]
-			,valueField: 'label'
-			,textField: 'value'
+		$("#dg_sel").datagrid({
+			title:"주소검색?"
+			,width:"1200"
 			
-		});
-	});
+		})
+		
+	})
 </script>
 </body>
 </html>

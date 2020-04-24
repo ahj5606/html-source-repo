@@ -19,13 +19,10 @@ textField - 화면에 출력되는 필드
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#cb_title").combobox({
-			data:[
-				{label:'java',value:"자바	"}
-				,{label:'oracle',value:"오라클"}
-				,{label:'ajax',value:"에이잭스"}
-			]
-			,valueField: 'label'
-			,textField: 'value'
+				url:'jsonDeptList.jsp'
+				,datatype:'json'
+				,valueField: 'DEPTNO'//실제 서버에 넘어가는 필드
+				,textField: 'DNAME'//화면에 출력되는 필드
 			
 		});
 	});
