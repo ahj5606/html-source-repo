@@ -44,9 +44,7 @@
 	SqlMapEmpDao sDao = new SqlMapEmpDao();
 	int result = sDao.empINS(pMap);
 	if(result==1){
-		
-		response.sendRedirect("EmpManagerVer8.jsp");
-		
+		response.sendRedirect("EmpManagerVer8.jsp?upd=update");
 	}
 	//등록에 실패 했을 때
 	else{

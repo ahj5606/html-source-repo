@@ -32,14 +32,18 @@ public class SqlMapEmpDao {
 		}
 		return result;
 	}
-	public int empDEL(Map<String, Object> pMap) {
+	public int empDEL(String empnos[]) {
 		int result =0;
 		logger.info("empDEL호출 성공.");
 		try {
+			List<Integer> eList = new ArrayList<>();
+			for(int i=0;i<empnos.length;i++) {
+				eList.add(Integer.parseInt(empnos[i]));
+			}
 			Reader reader = Resources.getResourceAsReader(resource);
 			sqlMapper = new SqlSessionFactoryBuilder().build(reader);
 			SqlSession sqlSes = sqlMapper.openSession();
-			result=sqlSes.delete("empDelete",pMap);
+			result=sqlSes.delete("empDelete2",eList);
 			sqlSes.commit();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -125,26 +125,13 @@
 	function empList(){
 		$('#dg_emp').datagrid({
 			url:'jsonEmpList.jsp'
-				,pagination:true
-				,pageSize:10
 			,onLoadSuccess:function(data){
 				var result = JSON.stringify(data);
 				//alert("새로고침 처리 성공 : "+data+" , "+result);
 			}
 			 
-		});
-		var pager = $("#dg_emp").datagrid('getPager');
-		pager.pagination({
-			 onSelectPage:function(pageNum, pageSize){
-                 opts.pageNumber = pageNum;
-                 opts.pageSize = pageSize;
-                 pager.pagination('refresh',{
-                     pageNumber:pageNum,
-                     pageSize:pageSize
-                 });
-                 //$("#dg_emp").datagrid('loadData',pageNum);
-			 }
-		});
+		}); 
+		
 	};
 	function getRowIndex(target){
 	    var tr = $(target).closest('tr.datagrid-row');
@@ -199,8 +186,16 @@
 </div>
 
 <!--========================== 검색 조건 추가하기 끝 ====================================  -->
-
    <table id="dg_emp"></table>
+	<div class="easyui-pagination" style="border:1px solid #ccc;"
+	        data-options="
+	            total: 2000,
+	            pageSize: 5,
+	            pageList:[2,3,5,10],
+	            onSelectPage: function(pageNumber, pageSize){
+	                $('#content').panel('refresh', 'show_content.php?page='+pageNumber);
+	            }">
+	</div>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#dong").textbox('textbox').bind('keydown', function(e){
@@ -232,9 +227,13 @@
 		       ,{field:'ADDRESS',title:'주소',width:350,align:'left'  }
 		    ]]
 		});
+		$("#pp_emp").pagination({
+			pageSize:5
+			,pageList:[2,3,5,10]
+		});
 		$('#dg_emp').datagrid({
 			toolbar: '#tbar_emp'
-			,pagination: true
+			,remoteFilter : true
 			,rownumbers:true
 			,width:1200
 			,height:400
@@ -294,18 +293,19 @@
 	        }
 	        
 		}); 
-		var pager = $("#dg_emp").datagrid('getPager');
+		/* var pager = $("#dg_emp").datagrid('getPager');
 		pager.pagination({
 			 onSelectPage:function(pageNum, pageSize){
-                 opts.pageNumber = pageNum;
-                 opts.pageSize = pageSize;
+				 $("#dg_emp").data('datagird').options.pageNumber = pageNum;
+				 $("#dg_emp").data('datagird').options.pageSize = pageSize;
                  pager.pagination('refresh',{
                      pageNumber:pageNum,
                      pageSize:pageSize
                  });
                  $("#dg_emp").datagrid('loadData',$("#dg_emp").data('datagird').allRows);
 			 }
-		});
+		}); */
+		
 	});
 
 </script>
