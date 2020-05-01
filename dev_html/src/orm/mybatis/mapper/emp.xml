@@ -7,6 +7,7 @@
 		<if test="empno > 0">
 			where empno=#{empno}
 		</if>
+		order by empno desc
 	</select>
 	<select id="empList2" parameterType="int" resultType="map">
 		select empno,ename,job,mgr,hiredate,sal,comm,deptno 
@@ -19,6 +20,45 @@
 	</select> -->
 	<delete id="empDelete" parameterType="map">
 		delete from emp
-			where empno=#{empno}<!--Map<String,Object> map.put("empno",7566);  -->
+			where empno in(
+			
+			#{empno}
+			,
+			
+			)
+			
+			<!--Map<String,Object> map.put("empno",7566);  -->
 	</delete>
+	<insert id="empInsert" parameterType="map">
+		INSERT INTO emp(empno,ename,job,hiredate,sal,comm,deptno) 
+		VALUES(#{empno},#{ename},#{job},#{hiredate},#{sal},#{comm},#{deptno})
+	</insert>
+	<update id="empUpdate" parameterType="map">
+	UPDATE emp
+	 	SET 
+	 	<if test="ename!=null">
+		 	ename=#{ename} 
+	 	</if>
+	 
+	 	<if test="job!=null">
+	 		,job=#{job} 
+	 	</if>
+	 
+	 	<if test="hiredate!=null">
+	 		,hiredate=#{hiredate}
+	 	</if>
+	 	
+	 	<if test="sal>0">
+	 		,sal=#{sal}
+	 	</if>
+	 	
+	 	<if test="comm>0">
+	 		,comm=#{comm}
+	 	</if>
+	 	
+	 	<if test="deptno>0">
+	 		,deptno=#{deptno}
+	 	</if>
+		 WHERE empno= #{empno}
+	</update>
 </mapper>

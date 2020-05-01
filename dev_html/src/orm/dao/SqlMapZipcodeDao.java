@@ -52,6 +52,14 @@ public class SqlMapZipcodeDao {
 		}
 		return dList;
 	}
+	/******************************************************
+	 * 주소 검색 -우편번호 조회하기
+	 * @param pmap pmap.get("dong")
+	 * @return List<Map<String,Object>>
+	 * 업무설명 : 동이름을 입력하면 조건검색을 통하여 구간검색 처리하기
+	 * 작성자 : 000
+	 * 2020년 04월 27일
+	 ********************************************************/
 	public List<Map<String, Object>> zipcodeList(Map<String,Object> pmap){
 		List<Map<String, Object>> zipList = null;
 		SqlSessionFactory sqlMapper = null;

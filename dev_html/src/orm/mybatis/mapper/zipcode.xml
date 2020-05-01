@@ -13,7 +13,17 @@
 	<select id="zipcodeList" parameterType="map" resultType="map">
 		SELECT UID_NO,ZIPCODE,ZDO,SIGU,DONG,RI,BUNGI,APTNAME,ADDRESS 
 			from zipcode_t 
- 		WHERE zdo=#{zdo} and sigu=#{sigu} and dong =#{dong}
+			<where>
+				<if test="zdo!=null">
+		 			and zdo=#{zdo}
+				</if>
+		 		<if test="sigu!=null">
+		 		 	and sigu=#{sigu} 
+		 		</if>	
+		 		<if test="dong!=null">
+		 			and dong like '%'||#{dong}||'%'
+		 		</if>
+			</where>
  		order by ZIPCODE asc
 	</select>
 </mapper>
